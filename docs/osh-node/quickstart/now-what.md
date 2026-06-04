@@ -3,7 +3,7 @@ title: Now What?
 sidebar_position: 6
 ---
 
-Once you know how to build and launch an **OpenSensorHub** node, 
+Once you know how to build and launch an **OpenSensorHub** node,
 you can use it for a wide variety of use cases.
 
 Use **OpenSensorHub** as:
