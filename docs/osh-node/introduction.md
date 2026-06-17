@@ -13,7 +13,7 @@ driver - allows computer to hardware communication\
 API - rules for communication between software
 :::
 
-Sensors can be connected through many hardware interfaces such as
+Sensors can be connected through every hardware interfaces such as
 [Wi-Fi](http://en.wikipedia.org/wiki/Wi-Fi), [USB](http://en.wikipedia.org/wiki/USB), [HTTP](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), [Ethernet](http://en.wikipedia.org/wiki/Ethernet), [Bluetooth](http://en.wikipedia.org/wiki/Bluetooth), [ZigBee](http://en.wikipedia.org/wiki/ZigBee), [SPI](http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus), [I2C](http://en.wikipedia.org/wiki/I%C2%B2C), [RS232/422](http://en.wikipedia.org/wiki/RS-232), etc.
 When a sensor is connected by a driver, it is automatically connected to the bus, and it is then simple to send commands and read data from it.
 An intuitive user interface allows the user to configure the network to suit their needs and more advanced processing capabilities are available via plugins.

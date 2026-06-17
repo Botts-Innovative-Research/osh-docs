@@ -61,7 +61,9 @@ If not the Directory is `sensors/simulated/sensorhub-driver-fakeweather`.
 ### Configuring Sensor Drivers
 After you've selected a *Sensor Driver*, you'll see a panel to configure this driver.
 The driver will also appear under the *Sensors* tab with the `LOADED` state.
-Here you can edit information about your driver such as a name, description, and unique ID.
+
+In the panel to the right you can edit information about your driver such as a Module Name and Description found in General as well as Latitude, Longitude, and Altitude found in Location.
+The unique ID and Serial Number found in general are required information and can't be the same as any other modules.
 
 ![Sensor configuration](..%2F..%2Fassets%2Fosh%2Fadminui%2Fsensors%2Fsensorconfig.png)
 
@@ -133,21 +135,76 @@ Submodules may not be started unless the parent *Sensor System* is started. Also
 
 ## Processing
 
-### SensorML Stream Processing
-
 SensorML Stream Processing can be used to do simple or complex calculations and automation with provided data on the fly.
 
-The [Developer Documentation](https://docs.opensensorhub.org/docs/category/developer-documentation) will go over how to create SensorML Processes.
+The [Developer Documentation](https://docs.opensensorhub.org/docs/category/developer-documentation) will go over how to develop SensorML Processes.
 
-![processmodule.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fprocessing%2Fprocessmodule.png)
+### Gradle
 
-For the sake of this example, I will load a preconfigured simulated weather process which you can find at
+In our example we will use the `sensorhub-process-helpers` which converts the values provided by the driver fakewather into different measurement types.
+Ex: converting Celsius to Fahrenheit.
+`sensorhub-process-fakeweather` is located at:
 
 `/osh-node-dev-template/include/osh-addons/processing/sensorhub-process-fakeweather`
 
 If you are following along with the example you will have to add it in build.gradle and settings.gradle.
 
-This Gradle module provides you with a test class that will print a process description to your console in XML and JSON.
-After putting this process description in a file and loading it into the *SensorML Stream Process* module, we can see a stream of the process' outputs, similar to a *Sensor Driver*.
+If you go to `sensorhub-process-fakeweather`'s build.gradle which is in its folder.
+`sensorhub-process-helpers` is listed as a dependency so you need to add that to the root project's gradles.
+`sensorhub-process-helpers` is located in `osh-addons/processing` like `sensorhub-process-fakeweather`.
+
+After changing build.gradle and settings.gradle rebuild the OSHNode
+
+### Generate Process Description
+
+The Process Description tells the OpenSensorHub admin everything about how the process works from inputs to outputs and everything in between.
+
+To get the process description of fakeweather navigate to:
+
+`include/osh-addons-processing/sensorhub-process-fakeweather/src/test/java/ProcessDescriptionGenerator`
+
+:::note
+The ProcessDescriptionGenerator is in the same location of every module.
+:::
+
+the process knows what sensor to get its data from based on the sensor's *Serial Number*.
+The default is 001, but it can be changed at the end of `.addDataSource()` 
+
+```
+return processHelper.createProcessChain()
+        .name("Process Chain")
+        .uid("urn:osh:process:weather")
+        .description("Example process chain that converts units from the Simulated Weather Sensor")
+        .addDataSource("source0", "urn:osh:sensor:simweather:001") // this is where the sensor's serial number can replace the default 001
+        ...
+```
+
+Near the bottom of the code is `public void generate DescJSON()` and `public void generate DescXML()` and to the left of the methods should be a green start button if you are using IntelliJ.
+
+Press the green start button of either one, the choice only determines what type of file you will have to save it as later.
+
+In the terminal there should be some `> Task : ...` (which should not be copied) after all the tasks there will be either:
+
+JSON - `{"type":"AggregateProcess"... "destination":"outputs/weather"}]}` as one long line
+
+XML - `<sml:AggregateProcess... </sml:AggregateProcess>` across many lines
+
+After this will be `ProcessDescriptionGenerator > generateDec...` do not copy this or anything after this
+
+Paste the Process Description into Notepad, TextEdit, Gedit, etc. and go to file then save as then name it (whatever name you want).json or (whatever name you want).xml and save it into:
+
+`osh-node/build/distributions/osh-node-0.0.0/osh-node-0.0.0`
+
+### Deploy Process
+
+Deploy the OSHNode and open the Admin UI.
+Add New Module in Processing and select SensorML Stream Process.
+
+![processmodule.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fprocessing%2Fprocessmodule.png)
+
+type the name of the file including the .json/.xml into the SensorML File box.
+
+Ensure a Simulated Weather Sensor with the correct Serial Number is running then run the SensorML Stream Process.
+You should see the data from the sensor is being converted to different units.
 
 ![processoutputs.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fprocessing%2Fprocessoutputs.png)

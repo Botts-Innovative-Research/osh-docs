@@ -33,6 +33,8 @@ This will be in `build.gradle` which we will go over later.
 The default administrative credentials are:\
 **username**: admin\
 **password**: admin
+
+to change the credentials go to [General Node Configuration #Security Config](https://docs.opensensorhub.org/docs/osh-node/user-docs/node-configuration#security-config)
 :::
 
 :::warning

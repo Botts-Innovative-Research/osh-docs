@@ -5,7 +5,9 @@ sidebar_position: 2
 
 # Databases
 
-**OpenSensorHub** databases are used to persist data from sensor outputs, process outputs, or other nodes via *Service Modules*.
+This page goes over how to use and create databases and service modules in **OpenSensorHub**.
+
+**OpenSensorHub** databases are used to store data for long periods of time including after the node ends.
 
 **OpenSensorHub** comes pre-packaged with a basic H2 database module, and a *System Driver Database*, which uses the basic H2 database, but with additional features.
 
