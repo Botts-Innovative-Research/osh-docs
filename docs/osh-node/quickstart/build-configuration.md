@@ -1,5 +1,5 @@
 ---
-title: Configuring Sensors
+title: Build Configuration
 sidebar_position: 5
 ---
 
@@ -18,7 +18,7 @@ Once you have built the project, open it in your IDE.
 Within the project's root directory there will be a project wide `build.gradle` and `settings.gradle`.
 
 :::info
-The root directory in OSHNode is `osh-node-dev-template [osh-node]`. It contains the folders `dist`, `include`, `processing`, `sensors`, etc.
+The root directory is `osh-node`. It contains the folders `dist`, `include`, `processing`, `sensors`, etc.
 :::
 
 To include modules into your build from osh-addons or osh-core which are in the include folder or a directory built yourself, you must modify both the `build.gradle` & `settings.gradle`.
@@ -55,12 +55,6 @@ project(':[module-name]').projectDir = "[Dir def]/[other folders] (optional)/[mo
 ```
 The module name is typically something like `sensorhub-driver-{name}` (for sensor drivers) or `sensorhub-process-{name}` (for processing modules)
 
-the Directory path `[Dir def]/[other folders] (optional)/[module-name]` is made up of:
-- A directory variable which are shown above
-- subfolder(s) that contain the module
-    - if there are multiple add a slash between each
-- The module's name
-
 ####  Adding all submodules in a directory
 Toward the bottom of the page you will see a block of code:
 ``` gradle title="/osh-node-dev-template/settings.gradle"
@@ -94,7 +88,6 @@ subprojects.files.each { File f ->
          include projectName
          project(projectName).projectDir = projectFolder
       }
-      // highlight-next-line
    }
 }
 ```
