@@ -18,7 +18,7 @@ Once you have built the project, open it in your IDE.
 Within the project's root directory there will be a project wide `build.gradle` and `settings.gradle`.
 
 :::info
-The root directory is `osh-node`. It contains the folders `dist`, `include`, `processing`, `sensors`, etc.
+The root directory is `osh-node` in this project. It contains the folders `dist`, `include`, `processing`, `sensors`, etc.
 :::
 
 To include modules into your build from osh-addons or osh-core which are in the include folder or a directory built yourself, you must modify both the `build.gradle` & `settings.gradle`.
