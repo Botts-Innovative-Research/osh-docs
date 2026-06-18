@@ -141,33 +141,34 @@ The [Developer Documentation](https://docs.opensensorhub.org/docs/category/devel
 
 ### Gradle
 
-In our example we will use the `sensorhub-process-helpers` which converts the values provided by the driver fakewather into different measurement types.
+In our example we will use `sensorhub-process-fakeweather` which converts the values provided by the fakewather driver into different measurement types.
 Ex: converting Celsius to Fahrenheit.
 `sensorhub-process-fakeweather` is located at:
 
-`/osh-node-dev-template/include/osh-addons/processing/sensorhub-process-fakeweather`
+`/osh-node/include/osh-addons/processing/sensorhub-process-fakeweather`
 
 If you are following along with the example you will have to add it in build.gradle and settings.gradle.
 
 If you go to `sensorhub-process-fakeweather`'s build.gradle which is in its folder.
-`sensorhub-process-helpers` is listed as a dependency so you need to add that to the root project's gradles.
+`sensorhub-process-helpers` is listed as a dependency so you need to add that to the root project's gradles as well.
 `sensorhub-process-helpers` is located in `osh-addons/processing` like `sensorhub-process-fakeweather`.
 
-After changing build.gradle and settings.gradle rebuild the OSHNode
+After changing build.gradle and settings.gradle rebuild the OSHNode.
 
 ### Generate Process Description
 
-The Process Description tells the OpenSensorHub admin everything about how the process works from inputs to outputs and everything in between.
+The *Process Description* tells the admin UI everything about how the process works from inputs to outputs and everything in between.
 
 To get the process description of fakeweather navigate to:
 
 `include/osh-addons-processing/sensorhub-process-fakeweather/src/test/java/ProcessDescriptionGenerator`
 
 :::note
-The ProcessDescriptionGenerator is in the same location of every module.
+The ProcessDescriptionGenerator is in the same location of every process.
 :::
 
-the process knows what sensor to get its data from based on the sensor's *Serial Number*.
+The process knows what sensor to get its data from based on the sensor's *Serial Number*.
+This file also determines what *Serial Number* a process looks for.
 The default is 001, but it can be changed at the end of `.addDataSource()` 
 
 ```
@@ -183,15 +184,15 @@ Near the bottom of the code is `public void generate DescJSON()` and `public voi
 
 Press the green start button of either one, the choice only determines what type of file you will have to save it as later.
 
-In the terminal there should be some `> Task : ...` (which should not be copied) after all the tasks there will be either:
+Once ran the terminal should have some `> Task : ...` (which should not be copied) after all the tasks there will be either:
 
 JSON - `{"type":"AggregateProcess"... "destination":"outputs/weather"}]}` as one long line
 
 XML - `<sml:AggregateProcess... </sml:AggregateProcess>` across many lines
 
-After this will be `ProcessDescriptionGenerator > generateDec...` do not copy this or anything after this
+After the *Process Description* will be `ProcessDescriptionGenerator > generateDec...` do not copy this or anything after this
 
-Paste the Process Description into Notepad, TextEdit, Gedit, etc. and go to file then save as then name it (whatever name you want).json or (whatever name you want).xml and save it into:
+Paste the *Process Description* into Notepad, TextEdit, Gedit, etc. and go to file then save as then name it (whatever name you want).json or (whatever name you want).xml and save it into:
 
 `osh-node/build/distributions/osh-node-0.0.0/osh-node-0.0.0`
 
