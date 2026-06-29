@@ -55,7 +55,7 @@ In this example, I'll select and show the outputs of a simulated weather sensor.
 ![Selecting a Simulated Weather Sensor Driver](../../assets/osh/adminui/sensors/sensorselection.png)
 :::tip
 Simulated weather should already be added assuming you did the example in [*Build Configuration*](../quickstart/build-configuration).
-If not the Directory is `sensors/simulated/sensorhub-driver-fakeweather`.
+If not the Directory is `osh-node/include/osh-addons/sensors/simulated/sensorhub-driver-fakeweather`.
 :::
 
 ### Configuring Sensor Drivers
@@ -169,7 +169,7 @@ The ProcessDescriptionGenerator is in the same location of every process.
 
 The process knows what sensor to get its data from based on the sensor's *Serial Number*.
 This file also determines what *Serial Number* a process looks for.
-The default is 001, but it can be changed at the end of `.addDataSource()` 
+The default is 001, but it can be changed at the end of `.addDataSource()` in the *UID*.
 
 ```
 return processHelper.createProcessChain()
@@ -204,6 +204,10 @@ Add New Module in Processing and select SensorML Stream Process.
 ![processmodule.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fprocessing%2Fprocessmodule.png)
 
 type the name of the file including the .json/.xml into the SensorML File box.
+
+:::info
+If the file is not in osh-node-0.0.0 then you will have to add the directory from the root of the computer to the file.
+:::
 
 Ensure a Simulated Weather Sensor with the correct Serial Number is running then run the SensorML Stream Process.
 You should see the data from the sensor is being converted to different units.

@@ -7,21 +7,24 @@ sidebar_position: 2
 
 This page goes over how to use and create databases and service modules in **OpenSensorHub**.
 
-**OpenSensorHub** databases are used to store data for long periods of time including after the node ends.
+**OpenSensorHub** databases are used to store data including after the node ends.
 
-**OpenSensorHub** comes pre-packaged with a basic H2 database module, and a *System Driver Database*, which uses the basic H2 database, but with additional features.
+**OpenSensorHub** comes pre-packaged with three types of databases:
 
-:::info
-An H2 database is a Java-based SQL database, that is embedded in **OpenSensorHub** via the **H2 database module**.
-You can learn more at the [H2 database website](https://h2database.com/html/main.html).
-:::
+| Database Type          | Database Use                   |
+|------------------------|--------------------------------|
+| Federated Database     | Viewing data from all systems  |
+| Basic H2 Database      | Getting data from data files   |
+| System Driver Database | Saving sensor and process data |
 
 ## Federated Database
 
-The federated database will always appear at the top of the *Databases* tab, and contains data from all running databases on the **OpenSensorHub** node.
-It features a search bar and the ability to check any system's observations.
+The federated database will always appear at the top of the *Databases* tab, and contains data from all running Systems on the **OpenSensorHub** node.
 
-If a *Sensor Driver*, *Process Module*, or *Service Module* do not have an associated database, then only the latest observations produced by these modules will be shown in the federated database.
+If a *Sensor Driver* or *Process Module* do not have an associated database, then only the latest observations produced by these modules will be shown in the federated database.
+
+After clicking a system, below the table it shows the data in it and Sensor Location (if applicable).
+
 ![federated.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Ffederated.png)
 
 ## Basic H2 Database
@@ -30,70 +33,94 @@ The H2 database module is the most basic module for interfacing between a databa
 
 ### Configuration
 
-For an H2 database module to run, a storage path, or path to the database file is required. Once specifying this path, 
+Enter the storage path to an existing .dat file, or choose where a new one should be created.
+
+If you only put the file name it will default to the folder `osh-node-0.0.0`.
+
 The other default configuration options will be sufficient for most use cases.
 
 ![h2db.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Fh2db.png)
 
-The H2 database module wrapped inside the *System Driver Database*, the configuration of the actual H2 database used by the *System Driver Database* will appear as it would in an H2 database module.
-
 ### Usage
 
-The H2 database module can be used as a store that *Service Modules* can write to, or it can be used to load **OpenSensorHub**-compatible database files from another node.
+The Basic H2 Database can be used to load **OpenSensorHub**-compatible .dat files from another node.
+It can also be used for storing *Service Module* data which is explained in [Service Modules](https://docs.opensensorhub.org/docs/osh-node/user-docs/service-modules)
 
 ## System Driver Database
 
-*System Driver Databases* are used as a means of capturing data from *Sensor Drivers* or *Process Modules* for long-term storage. 
-This is different from the standalone H2 database, as it has a mechanism for pulling data directly from sensors or processes without having to edit the *Sensor Driver* or *Process Module* configuration.
+*System Driver Databases* are used as a means of capturing data from *Sensor Drivers* or *Process Modules* for long-term storage.
 
-#### Configuration
+*System Driver Databases* are wrapped around H2 databases to give more functionality.
+
+### Configuration
 
 Below, you will see the default configuration of a *System Driver Database*.
 There are 3 important parts of the *System Driver Database* configuration.
 
-| Configuration          | Description                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-| System UIDs            | A list of system UIDs or UID patterns (i.e. `urn:osh:sensor:*`) to persist. |
-| Database Config        | H2 database configuration. See previous section.                            |
-| Automatic Purge Policy | A list of policies used to regularly purge data from the database.          |
+| Configuration          | Description                                                                  |
+|------------------------|------------------------------------------------------------------------------|
+| Database Config        | Adding and configuring the wrapped H2 database.                              |
+| System UIDs            | A list of system UIDs or UID patterns that the data base will get data from. |
+| Automatic Purge Policy | A list of policies used to regularly purge (delete) data from the database.  |
 
----
 
 ![systemdriverdb.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Fsystemdriverdb.png)
 
+### Database Config
+
+1) Open **Database Config**
+2) Click **Add** in the top left
+3) Select **H2 Historical Obs Database**
+4) Click **OK**.
+5) Configure the same way as [Basic H2 Database](https://docs.opensensorhub.org/docs/osh-node/user-docs/databases#basic-h2-database).
+
+![systemdbconfig.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Fsystemdbconfig.png)
+
 ### System UIDs
 
-Upon adding system UIDs to your *System Driver Database*, you will see those systems appear below the *System Driver Database* configuration.
-You will also notice that their observations will start being persisted in the table below *Database Content*. 
-This means that your sensor or process is publishing outputs, and your database is storing those observations.
+a UID (Unique Identifier) is how systems tell each other apart.
+In **OSH** a UID for a fakeweather driver with 001 as the *Serial Number* would be `urn:osh:sensor:simweather:001`
 
-If you want to add a *Sensor System* and its subsystems to a *System Driver Database*, you only need to put the UID of the parent system. This will typically look like `urn:osh:system:<parent id>`
+In General there is *System UIDs* which is where UIDs are selected for the database.\
+To add a module press the plus sign then select the module.\
+The module will show up in the list in *System UIDs*.\
+To remove a module select them in the list then press the x sign.
 
-:::info
-Click *Apply Changes* after all module configuration updates!
-:::
+When the *System Driver Database* has been started you will see those systems appear below the *System Driver Database* configuration.
+
+There should be at least one module in the table below *Database Content*.
+If not try pressing *Apply Changes* again.
+
+Select a module then below the table will show the data stored and will show information about the sensor in Sensor Location (if applicable).
+Keep in mind the data will be stored oldest first and newest last.
+
+If you want to add a *Sensor System* and its subsystems to a *System Driver Database*, you only need to put the UID of the parent system.
+This will typically look like `urn:osh:system:<parent UID>`
 
 ![systemuids.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Fsystemuids.png)
 
 :::tip
-You may use a UID pattern to specify all UIDs with a certain prefix. For example, `urn:osh:sensor:*` will add all *Sensor Drivers* to the *System Driver Database*.
+You may use a UID pattern to specify all UIDs with a certain prefix.
+For example, `urn:osh:sensor:*` will add all *Sensor Drivers* to the *System Driver Database*.
+An asterisk basically means "All". 
 :::
-
-### Database Config
-
-The *System Driver Database* is built on top of the basic H2 database module. 
-This means that you will need to specify a database file path to use, as well as any other lower-level configuration as needed.
-Please refer back to the previous section about the basic H2 database module to learn more.
-
-![systemdbconfig.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Fsystemdbconfig.png)
 
 ### Automatic Purge Policy
 
 Automatic purge policies will instruct the *System Driver Database* module to purge specified systems from the database routinely.
 
+To add a Purge Policy click the plus sign.
+
 Here, we can specify a few things
 - Which systems are purged via their UIDs or a UID pattern. This is `*` by default, which means **ALL** systems will be purged.
-- How often these systems are purged from the database (in seconds).
+- How often the data is checked for being too old (in seconds).
 - The maximum age of data to be kept in the database (in seconds).
 
 ![purgepolicy.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fdatabases%2Fpurgepolicy.png)
+
+:::tip
+an hour is 3600 seconds\
+a day is 86,400 seconds\
+a week is 604,800 seconds\
+30 days is 2,592,000 seconds
+:::

@@ -126,5 +126,5 @@ project(':sensorhub-driver-fakeweather').projectDir = "$sensorDir/simulated/sens
 notice when colons are and are not used before the module name.
 :::
 
-Upon adding these dependencies to your `build.gradle` and `settings.gradle`, your **OpenSensorHub** node will need to be run then `sensorhub-driver-fakeweather` will be installed.
-`sensorhub-driver-fakeweather` will need to be added to be seen in the Admin UI which will be explained in [Sensor/Process Modules](https://docs.opensensorhub.org/docs/osh-node/user-docs/sensors-and-process-modules).
+Upon adding these dependencies to your `build.gradle` and `settings.gradle`, your **OpenSensorHub** node will need to be rebuilt and unzipped then `sensorhub-driver-fakeweather` will be installed.
+`sensorhub-driver-fakeweather` will need to be added to be seen and used in the Admin UI which will be explained in [Sensor/Process Modules](https://docs.opensensorhub.org/docs/osh-node/user-docs/sensors-and-process-modules).
