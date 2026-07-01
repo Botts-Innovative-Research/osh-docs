@@ -7,15 +7,15 @@ sidebar_position: 4
 
 After building the node, follow these steps to run it
 1) Starting in `osh-node-dev-template`, open the `build` folder, then the `distributions` folder.
-2) Unzip the `osh-node-0.0.0` folder.
+2) Unzip the `osh-node-*.*.*` folder.
 
 :::note
-The 0.0.0 indicates the version.
+The \*.\*.\* indicates the version. The default is 0.0.0.
 
 As you work on **OSH** you can optionally increase the version.
 This will be in `build.gradle` which we will go over later.
 :::
-3) Within the unzipped `osh-node-0.0.0` double-click the launch script or use a command below.
+3) Within the unzipped `osh-node-*.*.*` double-click the launch script or use a command below.
 
 :::note
 **Windows**:

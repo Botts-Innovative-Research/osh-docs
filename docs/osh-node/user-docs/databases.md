@@ -35,7 +35,7 @@ The H2 database module is the most basic module for interfacing between a databa
 
 Enter the storage path to an existing .dat file, or choose where a new one should be created.
 
-If you only put the file name it will default to the folder `osh-node-0.0.0`.
+If you only put the file name it will default to the folder `osh-node*.*.*`.
 
 The other default configuration options will be sufficient for most use cases.
 

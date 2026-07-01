@@ -194,7 +194,7 @@ After the *Process Description* will be `ProcessDescriptionGenerator > generateD
 
 Paste the *Process Description* into Notepad, TextEdit, Gedit, etc. and go to file then save as then name it (whatever name you want).json or (whatever name you want).xml and save it into:
 
-`osh-node/build/distributions/osh-node-0.0.0/osh-node-0.0.0`
+`osh-node/build/distributions/osh-node-*.*.*/osh-node-*.*.*`
 
 ### Deploy Process
 
@@ -206,7 +206,7 @@ Add New Module in Processing and select SensorML Stream Process.
 type the name of the file including the .json/.xml into the SensorML File box.
 
 :::info
-If the file is not in osh-node-0.0.0 then you will have to add the directory from the root of the computer to the file.
+If the file is not in `osh-node-*.*.*` then you will have to add the directory from the root of the computer to the file.
 :::
 
 Ensure a Simulated Weather Sensor with the correct Serial Number is running then run the SensorML Stream Process.
