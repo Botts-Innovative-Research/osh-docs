@@ -22,5 +22,3 @@ In order to build and run an **OpenSensorHub** node, you must have the following
     - Linux
     - RaspberryPi
     - Most ARM boards (with JVM)
-
-test(Test)
