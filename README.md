@@ -1,4 +1,4 @@
-# OpenSensorHub Docs 
+# BUTT HEAD Docs 
 
 Documentation site for all things OpenSensorHub!
 
