@@ -10,7 +10,7 @@ This page guides you through building an OSH Node from source using the command 
 ## Getting the Code
 The `git` command is used to download the code from the GitHub repositories hosting **OpenSensorHub**. 
 
-For example, you can download the code for an OSH Node Development Template using the following command:
+For example, you can download the code for an OSH Node Development Template, using the HTTPS with the following command:
 
 ```git 
 git clone --recursive https://github.com/opensensorhub/osh-node-dev-template.git
@@ -39,7 +39,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.3.3-bin.zip
 distri...
 ```
 :::
-To build, run the following:   
+To build your local OSH node, enter the following:   
 ```sh
 ./gradlew build -x test
 ```
@@ -47,7 +47,10 @@ To build, run the following:
 `-x test` excludes unit tests from the build process 
 :::
 
+This will result in a build of your OSH node, in a zip file. Later sets will help you unzip the file and begin running your OSH node
 
-The result OSH node will build in:
+Finally, locate the file, by opening build then distributions to find your file. 
 
-`/osh-node-dev-template/build/distributions/osh-node-..*.zip`
+Path:`/osh-node-dev-template/build/distributions/osh-node-..*.zip`
+
+Titled: `osh-node-..*.zip`
