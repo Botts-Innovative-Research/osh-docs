@@ -3,9 +3,10 @@ title: Build
 sidebar_position: 3
 ---
 
+
 # How to Build an OSH Node
 
-This page guides you through building an OSH Node from source using the command line.
+This page guides you through how to build your OSH Node in your command line. Starting from your requirements and ending with a zip file housing the architecture to build your own customizable OSH Node.
 
 ## Getting the Code
 The `git` command is used to download the code from the GitHub repositories hosting **OpenSensorHub**. 
