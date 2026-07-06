@@ -52,6 +52,16 @@ Within your OSH Node folder, there is a `config.json` file containing a default 
 
 Customizable settings will be covered in other sections. With using/deploying the different modules under *User Documentation* and API reference available in the *Developer Documentation*.
 
+### Ending and Restarting OSH Node
+
+Once you have your OSH Node folder, you can use your choice of an IDE. From there, open your OSH Node folder in that IDE. 
+
+From the terminal in that IDE, to restart the Node, you enter the launch script again into that terminal. 
+
+Once you are done using your Node and you want to exit out, enter `Ctrl/Cmd + C` into your terminal, and your script running your Node will be terminated. 
+
+To use your OSH Node again, you will need to restart it, using the instructions above.
+
 ## Docker Deployment
 
 TBD
