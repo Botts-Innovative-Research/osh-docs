@@ -9,7 +9,7 @@ This page guides you through how to run your OSH Node, locally on your computer.
 
 ## Basic Deployment
 
-After building the node, you can navigate to the newly generated ``` /osh-node-dev-template/build/distributions``` directory.
+After building the node, you can navigate to the newly generated ``` /osh-node-dev-template/build/distributions``` directory, moving from the build to the distributions folder. 
 
 You will see the `osh-node-..*.zip`
 
@@ -54,13 +54,11 @@ Customizable settings will be covered in other sections. With using/deploying th
 
 ### Ending and Restarting OSH Node
 
-Once you have your OSH Node folder, you can use your choice of an IDE. From there, open your OSH Node folder in that IDE. 
+Once your OSH Node folder has been created, you can end and restart your node from your command line.
 
-From the terminal in that IDE, to restart the Node, you enter the launch script again into that terminal. 
+To restart your OSH Node, navigate to the same place that housed your zip file, and change directory to the unzipped folder. From there, enter the same launch script you used earlier. 
 
-Once you are done using your Node and you want to exit out, enter `Ctrl/Cmd + C` into your terminal, and your script running your Node will be terminated. 
-
-To use your OSH Node again, you will need to restart it, using the instructions above.
+To end the node, just enter `Ctrl/Cmd + C` and the script will end along with your Node, needing you to restart it with the instructions above. Any saved configurations you have entered will be present when you start your node again. 
 
 ## Docker Deployment
 
