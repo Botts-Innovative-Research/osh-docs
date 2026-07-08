@@ -5,9 +5,9 @@ sidebar_position: 5
 
 # Configuring an OSH Node
 
-This page guides you through how to customize your OSH Node. From adding specific drivers (sensors) and processes (how sensors interact) to your OSH Node. This page will take you from your `osh-node-dev-template` folder, to a new OSH Node, that has been customized with desired drivers and processes. 
+This page guides you through how to customize your OSH Node. From adding specific drivers (sensors) and processes (interactions between data streams) to your OSH Node. This page will take you from your `osh-node-dev-template` folder, to a new OSH Node, that has been customized with desired drivers and processes. 
 
-The easiest way to modify your node, with configurations, is to do it within an IDE
+The easiest way to modify your Node, with configurations, is to do it within an IDE
 
 Some later guides may include workflow & project setup in **IntelliJ IDEA** (free version available) but other IDEs can be used as well. 
 
@@ -28,11 +28,11 @@ To include modules into your build from `osh-addons` (drivers, sensors, processe
 ### settings.gradle
 The `settings.gradle` file is used to configure and define the subprojects of a multi-project Gradle build. 
 
-It's primarily responsible for defining which subprojects are included in the build and configuring project-level settings.
+It's primarily responsible for defining which subprojects are included in the build and configuring project-level settings. 
 
-It controls which projects are part of the build, typically by including or excluding subprojects.
+It is how Gradle knows what addons are being added to your Node, controlling which projects are part of the build, typically by including or excluding subprojects.
 
-OpenSensorHub uses `settings.gradle` to define subprojects that we either use in our build (added to your Node) or to resolve dependencies of other subprojects.
+OpenSensorHub uses `settings.gradle` to define subprojects that we either use in our build or to resolve dependencies of other subprojects.
 
 #### Adding Individual Projects
 Open the `settings.gradle` in the root directory
@@ -77,7 +77,7 @@ subprojects.files.each { File f ->
   }
 ```
 
-The purpose of this code, it to tell build.gradle where to look in the file for your addons. This code above will include all subprojects from the `/osh-node-dev-template/sensors`. However, we can also use this method for including all submodules in a subdirectory.
+The purpose of this code, it to tell build.gradle where to look in the file for your addons. This code above will include all subprojects from the `/osh-node-dev-template/sensors`. However, we can also use this method for including all submodules in a subdirectory (comms, dist, security, etc).
 
 For example, using the `osh-addons` directory, we can include all sensors from `osh-addons` by referencing `"$sensorDir"` which includes modules from `/osh-node-dev-template/include/osh-addons/sensors`
 
@@ -115,7 +115,7 @@ Open `build.gradle` in the root directory.
 
 The dependencies block is shown with some examples commented out.
 
-Add a dependency for the driver you wish to add, at the bottom of the dependencies block
+Add a dependency for the driver you wish to add, at the bottom of the dependencies nested block
 
 
 For a driver
@@ -132,7 +132,7 @@ implementation project(':sensorhub-process-{name}')
 
 This workflow will show you how to add a driver to your OSH Node.
 
-The OSH-addons has several simulated datasets that once can add to their Node, to check that it is working (`include/osh-addons/sensors/simulated`). 
+The OSH-addons has several simulated datasets that one can add to their Node, to check that it is working (`include/osh-addons/sensors/simulated`). 
 
 One of these simulated data sets is sensorhub-driver-fakeweather, which this guide will add to an OSH Node. 
 
@@ -149,6 +149,6 @@ Then, open `build.gradle` in the root directory. In the nested block for depende
 implementation project(':sensorhub-driver-fakeweather')
 ``` 
 
-Upon adding these dependencies to your `build.gradle`, your **OpenSensorHub** node will have to be built again through your command line. Navigate to your `osh-node-dev-template` directory and repeat the steps. Then you Node will be build with these drivers/processes/modules installed and ready to run.
+Upon adding these dependencies to your `build.gradle`, your **OpenSensorHub** Node will have to be built again through your command line. Navigate to your `osh-node-dev-template` directory and repeat the steps to build an OSH Node. Then your Node will be build with these drivers/processes/modules installed and ready to run.
 
 *User Documentation* will explain how to use and deploy these addons. 
