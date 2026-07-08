@@ -32,7 +32,7 @@ It's primarily responsible for defining which subprojects are included in the bu
 
 It controls which projects are part of the build, typically by including or excluding subprojects.
 
-OpenSensorHub uses `settings.gradle` to define subprojects that we either use in our build or to resolve dependencies of other subprojects.
+OpenSensorHub uses `settings.gradle` to define subprojects that we either use in our build (added to your Node) or to resolve dependencies of other subprojects.
 
 #### Adding Individual Projects
 Open the `settings.gradle` in the root directory
@@ -60,7 +60,7 @@ project(':[module-name]').projectDir = "$sensorDir/[path]/[module-name]" as File
 ```
 The module name is typically something like `sensorhub-driver-{name}` (for sensor drivers) or `sensorhub-process-{name}` (for processing modules). 
 
-Prebuild drivers and processes can be found in the include folder, which you can add to your Node through the above method in `settings.gradle`
+Prebuild drivers and processes (subprojects) can be found in the include folder, which you can add to your Node through the above method in `settings.gradle`
 
 ####  Adding all submodules in a directory
 
@@ -77,7 +77,8 @@ subprojects.files.each { File f ->
   }
 ```
 
-This code will include all subprojects from the `/osh-node-dev-template/sensors`. However, we can also use this method for including all submodules in a subdirectory.
+The purpose of this code, it to tell build.gradle where to look in the file for your addons. This code above will include all subprojects from the `/osh-node-dev-template/sensors`. However, we can also use this method for including all submodules in a subdirectory.
+
 For example, using the `osh-addons` directory, we can include all sensors from `osh-addons` by referencing `"$sensorDir"` which includes modules from `/osh-node-dev-template/include/osh-addons/sensors`
 
 If you build your project within that directory it will automatically add your project's build.gradle to the build.
