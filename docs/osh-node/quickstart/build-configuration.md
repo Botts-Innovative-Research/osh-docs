@@ -23,7 +23,7 @@ In Java, the "root directory" typically refers to the base or top-level director
 In the `osh-node-dev-template`, the root directory contains subdirectories such as `dist`, `include`, `processing`, `sensors`, etc.
 :::
 
-To include modules into your build from `osh-addons` (drivers), `osh-core`(processes), or a directory that you build yourself, you must modify both the `build.gradle` & `settings.gradle` files.
+To include modules into your build from `osh-addons` (drivers, sensors, processes, etc), `osh-core` (framework architecture), or a directory that you build yourself, you must modify both the `build.gradle` & `settings.gradle` files.
 
 ### settings.gradle
 The `settings.gradle` file is used to configure and define the subprojects of a multi-project Gradle build. 
@@ -127,9 +127,27 @@ For a process
 ```gradle title="/osh-node-dev-template/build.gradle"
 implementation project(':sensorhub-process-{name}')
 ```
+### Example Workflow
 
-ADDED EXAMPLE ON HOW TO ADD FAKE WEATHER AND GEOLOG
+This workflow will show you how to add a driver to your OSH Node.
 
-ADD INSTRUCITIONS ON HOW TO GET THOSE CHANGES ADDED TO NODE, RERUN EVERYTHING ESSENTIALLY
+The OSH-addons has several simulated datasets that once can add to their Node, to check that it is working (`include/osh-addons/sensors/simulated`). 
 
-Upon adding these dependencies to your `build.gradle`, your **OpenSensorHub** node will build with these drivers/processes/modules installed and ready to run.
+One of these simulated data sets is sensorhub-driver-fakeweather, which this guide will add to an OSH Node. 
+
+First, open `settings.gradle` in the root directory. Under the definitions, add the following two lines
+
+```gradle title="/osh-node-dev-template/settings.gradle"
+include 'sensorhub-driver-fakeweather'
+project(':sensorhub-driver-fakeweather').projectDir = "$sensorDir/simulated/sensorhub-driver-fakeweather" as File
+```
+
+Then, open `build.gradle` in the root directory. In the nested block for dependencies, add at the bottom the following line of code
+
+```gradle title="/osh-node-dev-template/build.gradle"
+implementation project(':sensorhub-driver-fakeweather')
+``` 
+
+Upon adding these dependencies to your `build.gradle`, your **OpenSensorHub** node will have to be built again through your command line. Navigate to your `osh-node-dev-template` directory and repeat the steps. Then you Node will be build with these drivers/processes/modules installed and ready to run.
+
+*User Documentation* will explain how to use and deploy these addons. 
