@@ -13,9 +13,9 @@ After building the node, you can navigate to the newly generated ``` /osh-node-d
 
 You will see the `osh-node-..*.zip`
 
-To unzip the node, use the command `unzip osh-node-..*.zip`, when you are in the same folder that houses your zip file. 
+To unzip the node, use the command `unzip osh-node-..*.zip`, when you are in the same directory that houses your zip file. 
 
-To launch the script, in your extracted folder, execute the launch script for your corresponding OS by either double-clicking or running the script in the command line:
+To launch the script, change directories to the new unzipped folder, then execute the launch script for your corresponding OS by either double-clicking or running the script in the command line:
 :::note
 
 **Windows**: 
