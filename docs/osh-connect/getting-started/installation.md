@@ -14,20 +14,20 @@ OSHConnect can be installed in Python and Java, using *pip* (or *poetry*) for Py
 
 **OSHConnect-Python**
 
+OSHConnect is published to [PyPI](https://pypi.org/project/oshconnect/), but
+so far **only as alpha pre-releases** (latest `0.5.1a22`) — there is no stable
+release yet. `pip` and `uv` skip pre-releases by default, so you must opt in:
+
 [*Link to the GitHub Repository*](https://github.com/Botts-Innovative-Research/OSHConnect-Python)
 
-<Tabs>
-    <TabItem value="pip" label="pip" default>
-    ```py
-    pip install git+https://github.com/Botts-Innovative-Research/OSHConnect-Python.git
-    ```
-    </TabItem>
-    <TabItem value="poetry" label="poetry">
-    ```py
-    poetry add git+https://github.com/Botts-Innovative-Research/OSHConnect-Python.git
-    ```
-    </TabItem>
-</Tabs>
+```bash
+pip install "oshconnect==0.5.1a22"               # exact pin auto-allows the alpha
+pip install --pre oshconnect                     # or: latest alpha (note below)
+
+uv add "oshconnect==0.5.1a22"                    # exact pin auto-allows the alpha
+uv add "oshconnect>=0.5.1a0" --prerelease=allow  # or: allow future alphas
+```
+
 
 **OSHConnect-Java**
 
