@@ -16,9 +16,9 @@ To do this you must first create an instance of OSHConnect:
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
-from oshconnect.oshconnectapi import OSHConnect, TemporalModes
+from oshconnect import OSHConnect, TemporalModes
 
-osh_connect = OSHConnect(name='OSHConnect', playback_mode=TemporalModes.REAL_TIME)
+app = OSHConnect(name='MyApp')
 ```
 </TabItem>
 
@@ -45,12 +45,10 @@ The OSHConnect instance can support multiple Nodes at once.
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
-from oshconnect.oshconnectapi import OSHConnect, TemporalModes
-from oshconnect.osh_connect_datamodels import Node
-
-connect_app = OSHConnect(name='OSHConnect', playback_mode=TemporalModes.REAL_TIME)
-node = Node(protocol='http', address="localhost", port=8585, username="test", password="test")
-connect_app.add_node(node)
+node = Node(protocol='http', address='localhost', port=8585,
+            username='test', password='test',
+            enable_mqtt=True, mqtt_port=1883)
+app.add_node(node)
 ```
 </TabItem>
 
@@ -77,7 +75,7 @@ This is done by calling the system discovery method on the OSHConnect instance.
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
-osh_connect.discover_systems()
+app.discover_systems()
 ```
 </TabItem>
 
@@ -100,7 +98,7 @@ This is done by calling the datastream discovery method on the OSHConnect instan
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
-osh_connect.discover_datastreams()
+app.discover_datastreams()
 ```
 </TabItem>
 
@@ -116,16 +114,34 @@ oshSystem.discoverDatastreams();
 ```
 </TabItem>
 </Tabs>
+
 ## Retrieving Observations
+
 Once you have discovered the datastreams available for a system, you can fetch observations from a datastream.
 This is done by calling the fetch observations method on the OSHDataStream instance.
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
-TODO
+```python
+from oshconnect import StreamableModes
+import time
+
+for ds in app.get_datastreams():
+	ds.set_connection_mode(StreamableModes.PULL)
+    ds.initialize()
+    ds.start()
+
+time.sleep(2)  # allow messages to arrive
+for ds in app.get_datastreams():
+    while ds.get_inbound_deque():
+        msg = ds.get_inbound_deque().popleft()
+        print(msg)
+```
 </TabItem>
 
 <TabItem value="java" label="Java">
+```java
 TODO
+```
 </TabItem>
 
 <TabItem value="cpp" label="C++">
@@ -143,11 +159,21 @@ The first major step in a common workflow is to add a new system to the OSH Conn
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
-from oshconnect.osh_connect_datamodels import System
+from oshconnect import OSHConnect, Node
 
-new_system = app.insert_system(
-    System(name="Test System", description="Test System Description", label="Test System",
-           urn="urn:system:test"), node)
+app = OSHConnect(name='MyApp')
+node = Node(protocol='http', address='localhost', port=8585,
+            username='admin', password='admin')
+app.add_node(node)
+
+new_system = app.create_and_insert_system(
+    system_opts={
+        'name': 'Test System',
+        'description': 'A test system',
+        'uid': 'urn:system:test:001',
+    },
+    target_node=node
+)
 ```
 </TabItem>
 
@@ -182,23 +208,30 @@ so you can be sure that your datastream is valid before inserting it.
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
-from oshconnect.osh_connect_datamodels import Datastream
+from oshconnect import DataRecordSchema, TimeSchema, QuantitySchema, TextSchema
+from oshconnect.api_utils import URI, UCUMCode
 
-datarecord_schema = DataRecordSchema(label='Example Data Record', description='Example Data Record Description',
-                                     definition='www.test.org/records/example-datarecord', fields=[])
-time_schema = TimeSchema(label="Timestamp", definition="http://test.com/Time", name="timestamp",
-                         uom=URI(href="http://test.com/TimeUOM"))
-continuous_value_field = QuantitySchema(name='continuous-value-distance', label='Continuous Value Distance',
-                                        description='Continuous Value Description',
-                                        definition='www.test.org/fields/continuous-value',
-                                        uom=UCUMCode(code='m', label='meters'))
-example_text_field = TextSchema(name='example-text-field', label='Example Text Field', definition='www.test.org/fields/example-text-field')
-# add the fields to the datarecord schema, these can also be added added to the datarecord when it is created
-datarecord_schema.fields.append(time_schema)   # TimeSchema is required to be the first field in the datarecord for OSH
-datarecord_schema.fields.append(continuous_value_field)
-datarecord_schema.fields.append(example_text_field)
-# Add the datastream to the system
-datastream = new_system.add_insert_datastream(datarecord_schema)
+datarecord = DataRecordSchema(
+    label='Example Record',
+    description='Example datastream record',
+    definition='http://example.org/records/example',
+    fields=[]
+)
+
+# TimeSchema must be the first field for OSH
+datarecord.fields.append(
+    TimeSchema(label='Timestamp', definition='http://www.opengis.net/def/property/OGC/0/SamplingTime',
+               name='timestamp', uom=URI(href='http://www.opengis.net/def/uom/ISO-8601/0/Gregorian'))
+)
+datarecord.fields.append(
+    QuantitySchema(name='distance', label='Distance', definition='http://example.org/Distance',
+                   uom=UCUMCode(code='m', label='meters'))
+)
+datarecord.fields.append(
+    TextSchema(name='label', label='Label', definition='http://example.org/Label')
+)
+
+datastream = new_system.add_insert_datastream(datarecord)
 ```
 </TabItem>
 
@@ -240,13 +273,15 @@ Upon successfully adding a new datastream to a system, it is now possible to sen
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
+from oshconnect import TimeInstant
+
 datastream.insert_observation_dict({
-    "resultTime": TimeInstant.now_as_time_instant().get_iso_time(),     # resultTime is required for OSH
-    "phenomenonTime": TimeInstant.now_as_time_instant().get_iso_time(), # phenomenonTime is required for OSH
-    "result": {
-        "timestamp": TimeInstant.now_as_time_instant().epoch_time,
-        "continuous-value-distance": 1.0,
-        "example-text-field": "Here is some text"
+    'resultTime': TimeInstant.now_as_time_instant().get_iso_time(),
+    'phenomenonTime': TimeInstant.now_as_time_instant().get_iso_time(),
+    'result': {
+        'timestamp': TimeInstant.now_as_time_instant().epoch_time,
+        'distance': 1.0,
+        'label': 'example observation',
     }
 })
 ```
