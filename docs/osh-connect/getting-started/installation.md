@@ -22,6 +22,9 @@ release yet. `pip` and `uv` skip pre-releases by default, so you must opt in:
 
 [*Link to the GitHub Repository*](https://github.com/Botts-Innovative-Research/OSHConnect-Python)
 
+[*Link*](https://botts-innovative-research.github.io/OSHConnect-Python/tutorial.html#creating-an-oshconnect-instance) to a more indepth documentation for OSH Connect - Python 
+
+
 ```bash
 pip install "oshconnect==0.5.1a22"               # exact pin auto-allows the alpha
 pip install --pre oshconnect                     # or: latest alpha (note below)
