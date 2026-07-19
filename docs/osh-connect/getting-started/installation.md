@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 OSHConnect can be installed in Python and Java, using *uv* (or *pip*) for Python, and *gradle* for Java.
 
-Before working with OSH Connect, there must be a running OSH Node. Thus, you first must create a OSH [Node](../../osh-node/quickstart/requirements.md), then you can begin working connected systems.
+Before working with OSH Connect, there must be a running OSH Node. Thus, you first must create a OSH [Node](../../osh-node/introduction.md), then you can begin working connected systems.
 
 **Installing OSHConnect**
 

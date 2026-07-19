@@ -11,8 +11,7 @@ For information regarding usage of OSHConnect-JavaScript, please refer to the [O
 :::
 
 ## Instantiating OSHConnect
-The intended method of interacting with OpenSensorHub is through the main OSHConnect class. 
-To do this you must first create an instance of OSHConnect:
+The intended method of interacting with OpenSensorHub is through the main OSHConnect class, which just allows for ways to interact with the OSH Node, through different coding langauges. To do this you must first create an instance of OSHConnect:
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
@@ -39,8 +38,8 @@ The name parameter is optional, but can be useful for debugging purposes.
 :::
 
 ## Adding a Node
-The next step is to add a Node to the OSHConnect instance. 
-A Node is a representation of a server that you want to connect to. 
+The next step is to add your running Node to the OSHConnect instance. 
+A Node is a representation of a server that you want to be connected to, which can be augmented from your OSH Connect Project. 
 The OSHConnect instance can support multiple Nodes at once.
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
