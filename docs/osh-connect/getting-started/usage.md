@@ -11,7 +11,7 @@ For information regarding usage of OSHConnect-JavaScript, please refer to the [O
 :::
 
 ## Instantiating OSHConnect
-The intended method of interacting with OpenSensorHub is through the main OSHConnect class, which just allows for ways to interact with the OSH Node, through different coding langauges. To do this you must first create an instance of OSHConnect:
+The intended method of interacting with OpenSensorHub is through the main OSHConnect class, which allows for ways to interact with the OSH Node, through different coding langauges. To do this you must first create an instance of OSHConnect:
 <Tabs groupId="oshconnect">
 <TabItem value="python" label="Python">
 ```python
