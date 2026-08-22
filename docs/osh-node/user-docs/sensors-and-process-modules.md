@@ -213,3 +213,12 @@ Ensure a Simulated Weather Sensor with the correct Serial Number is running then
 You should see the data from the sensor is being converted to different units.
 
 ![processoutputs.png](..%2F..%2Fassets%2Fosh%2Fadminui%2Fprocessing%2Fprocessoutputs.png)
+
+## Saving Modules
+
+To save all modules and configuration click the *floppy disk icon* labeled Save and overide the previous save.
+
+Saving will make it so that everytime the Admin UI is opened it will automatically create the modules with the configurations.
+The modules will automatically be run if *auto start* is on.
+
+More info on saving can be found at [General Node Configuration](https://docs.opensensorhub.org/docs/osh-node/user-docs/node-configuration#config-file).
